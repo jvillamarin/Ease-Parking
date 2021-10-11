@@ -117,7 +117,7 @@ public class ConexionDb {
     }
 
     public ArrayList<String> getColunm(String nombreTabla) {
-        String query = "SELECT COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_SCHEMA = '" + db + "' AND TABLE_NAME = '" + nombreTabla + "' order by ORDINAL_POSITION'";
+        String query = "SELECT COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_SCHEMA = '" + db + "' AND TABLE_NAME = '" + nombreTabla + "'";
 
         try {
 
@@ -209,10 +209,18 @@ public class ConexionDb {
         }
         query.append(")");
         try {
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(query.toString());
-            return rs.getInt("id" + nombreTabla);
-
+            stmt = con.createStatement();
+            int columnasAfectadas = stmt.executeUpdate(query.toString(), Statement.RETURN_GENERATED_KEYS);
+            if (columnasAfectadas == 0) {
+                throw new SQLException("No se pudo guardar el registro");
+            }
+            ResultSet idsGenerados = stmt.getGeneratedKeys();
+            if (idsGenerados.next()) {
+                return idsGenerados.getInt(1);
+            }else {
+                return 0;
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDb.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -240,8 +248,9 @@ public class ConexionDb {
                 query.append(", ");
             }
         }
-        query.append("WHERE id");
+        query.append(" WHERE id");
         query.append(nombreTabla);
+        query.append(" = ");
         query.append(id);
         try {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -262,7 +271,7 @@ public class ConexionDb {
     public boolean eliminar(String nombreTabla, int id) {
         StringBuilder query = new StringBuilder("DELETE FROM ");
         query.append(nombreTabla);
-        query.append("WHERE id");
+        query.append(" WHERE id");
         query.append(nombreTabla);
         query.append(" = ");
         query.append(id);

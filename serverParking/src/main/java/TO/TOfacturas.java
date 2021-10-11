@@ -5,8 +5,6 @@
  */
 package TO;
 
-import java.sql.Date;
-
 /**
  *
  * @author johnv
@@ -16,28 +14,34 @@ public class TOfacturas extends TOoperarios{
   private int idVehiculosFacturas;
   private double valorTotal;
   private int idOperariosFacturas;
-  private Date horaEntrada;
-  private Date horaSalida;
+  private String horaEntrada;
+  private String horaSalida;
+  private String tipoVehiculo;
+  private String placa;
+  private int idPlazasVehiculo;
   
-  TOVehiculo vehiculo = new TOVehiculo();
+   
   
-
     public TOfacturas() {
     }
 
-    public TOfacturas(int idOperarios, String username, String password, String nombre, String tipo_identificacion, String identificacion) {
+    public TOfacturas(int idOperariosFacturas, String username, String password, String nombre, String tipo_identificacion, String identificacion) {
         super(username, password, nombre, tipo_identificacion, identificacion);
-        this.idOperariosFacturas = idOperarios;
-    }   
+        this.idOperariosFacturas = idOperariosFacturas;
+    }      
 
-    public TOfacturas(int idVehiculosFacturas, double valorTotal, int idOperarios, Date horaEntrada, Date horaSalida, String username, String password, String nombre, String apellido, String email, String tipo_identificacion, String identificacion, String telefono) {
+    public TOfacturas(int idVehiculosFacturas, double valorTotal, int idOperariosFacturas, String horaEntrada, String horaSalida, String tipoVehiculo, String placa, int idPlazasVehiculo, String username, String password, String nombre, String apellido, String email, String tipo_identificacion, String identificacion, String telefono) {
         super(username, password, nombre, apellido, email, tipo_identificacion, identificacion, telefono);
         this.idVehiculosFacturas = idVehiculosFacturas;
         this.valorTotal = valorTotal;
-        this.idOperariosFacturas = idOperarios;
-        vehiculo.setHoraEntrada(horaEntrada);
+        this.idOperariosFacturas = idOperariosFacturas;
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
+        this.tipoVehiculo = tipoVehiculo;
+        this.placa = placa;
+        this.idPlazasVehiculo = idPlazasVehiculo;
     }
-    
+       
 
     public int getIdFacturas() {
         return idFacturas;
@@ -67,91 +71,49 @@ public class TOfacturas extends TOoperarios{
         return idOperariosFacturas;
     }
 
-    public void setIdOperariosFacturas(int idOperarios) {
-        this.idOperariosFacturas = idOperarios;
-    } 
+    public void setIdOperariosFacturas(int idOperariosFacturas) {
+        this.idOperariosFacturas = idOperariosFacturas;
+    }
 
-    public Date getHoraEntrada() {
+    public String getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(Date horaEntrada) {
+    public void setHoraEntrada(String horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
 
-    public Date getHoraSalida() {
+    public String getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(Date horaSalida) {
+    public void setHoraSalida(String horaSalida) {
         this.horaSalida = horaSalida;
     }
-  
+
+    public String getTipoVehiculo() {
+        return tipoVehiculo;
+    }
+
+    public void setTipoVehiculo(String tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public int getIdPlazasVehiculo() {
+        return idPlazasVehiculo;
+    }
+
+    public void setIdPlazasVehiculo(int idPlazasVehiculo) {
+        this.idPlazasVehiculo = idPlazasVehiculo;
+    }  
 }
 
-//public class TOfacturas extends TOoperarios{
-//  private int idFacturas;
-//  private int idVehiculosFacturas;
-//  private double valorTotal;
-//  private int idOperarios;
-//  private Date horaEntrada;
-//  private Date horaSalida;
-//
-//    public TOfacturas() {
-//    }
-//
-//    public TOfacturas(int idOperarios, String username, String password, String nombre, String tipo_identificacion, String identificacion) {
-//        super(username, password, nombre, tipo_identificacion, identificacion);
-//        this.idOperarios = idOperarios;
-//    }   
-//    
-//
-//    public int getIdFacturas() {
-//        return idFacturas;
-//    }
-//
-//    public void setIdFacturas(int idFacturas) {
-//        this.idFacturas = idFacturas;
-//    }
-//
-//    public int getIdVehiculosFacturas() {
-//        return idVehiculosFacturas;
-//    }
-//
-//    public void setIdVehiculosFacturas(int idVehiculosFacturas) {
-//        this.idVehiculosFacturas = idVehiculosFacturas;
-//    }
-//
-//    public double getValorTotal() {
-//        return valorTotal;
-//    }
-//
-//    public void setValorTotal(double valorTotal) {
-//        this.valorTotal = valorTotal;
-//    }
-//
-//    public int getIdOperarios() {
-//        return idOperarios;
-//    }
-//
-//    public void setIdOperarios(int idOperarios) {
-//        this.idOperarios = idOperarios;
-//    } 
-//
-//    public Date getHoraEntrada() {
-//        return horaEntrada;
-//    }
-//
-//    public void setHoraEntrada(Date horaEntrada) {
-//        this.horaEntrada = horaEntrada;
-//    }
-//
-//    public Date getHoraSalida() {
-//        return horaSalida;
-//    }
-//
-//    public void setHoraSalida(Date horaSalida) {
-//        this.horaSalida = horaSalida;
-//    }
-//  
-//}
+

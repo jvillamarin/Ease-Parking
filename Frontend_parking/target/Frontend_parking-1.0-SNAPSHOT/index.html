@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>Ease Parking</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="css/style.css" rel="stylesheet">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </head>
 
 <body class="h-100">
@@ -41,18 +41,17 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                <a class="text-center" href="index.html"> <h4>Rosella</h4></a>
+                                <a class="text-center" href="index.html"><img src="images/parking.png" class="logo-login" alt="" /></a>
         
-                                <form class="mt-5 mb-5 login-input">
+                                <form class="mt-5 mb-5 login-input" ng-app="login" ng-controller="testController as ts">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="text" class="form-control" placeholder="Usuario" ng-model="ts.username">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" class="form-control" placeholder="Clave" ng-model="ts.password">
                                     </div>
-                                    <button class="btn login-form__btn submit w-100">Sign In</button>
-                                </form>
-                                <p class="mt-5 login-form__footer">Dont have account? <a href="page-register.html" class="text-primary">Sign Up</a> now</p>
+                                    <button class="btn login-form__btn submit w-100" ng-click="ts.login()">Ingresar</button>
+                                </form>                               
                             </div>
                         </div>
                     </div>
@@ -60,10 +59,6 @@
             </div>
         </div>
     </div>
-    
-
-    
-
     <!--**********************************
         Scripts
     ***********************************-->
@@ -73,6 +68,30 @@
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
 </body>
+<script>
+   var app = angular.module('login', []);
+   app.controller('testController', ['$http', initController]);
+   function initController($http) {
+       var controlador = this;       
+       
+       controlador.login = function(){
+           var parametros = {opcion:"login", data: JSON.stringify(controlador)};
+           
+           $http({
+               method:'POST',
+               url:'http://localhost:8080/serverParking/controlador/operariosControlador.jsp',
+               params: parametros
+           }).then(function(res){              
+               controlador.respuesta = res.data;
+               if (res.data.idOperarios === 0){
+                   alert("El usuario y/o clave ingresados no son validos, por favor verificar");
+               }else {
+                   window.location.href = "facturas.html";
+               }
+           });      
+       };
+   }
+</script>
 </html>
 
 

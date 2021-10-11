@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class DAOoperarios {
     private ConexionDb con;
-    private String nombreTabla = "operarios";
+    private String nombreTabla = "Operarios";
     
     public DAOoperarios() {
       con = new ConexionDb();  
@@ -78,6 +78,30 @@ public class DAOoperarios {
         } catch (Exception ex) {
             System.out.println("Error en DAOuoperarios.insertar Operarios: " + ex.getMessage());
             return false;
+        }
+    }
+    public TOoperarios verificarUsuario(String operario, String password){
+        TOoperarios operarioTo = new TOoperarios();     
+        
+        try {
+            ResultSet rs = con.consultarWhere(nombreTabla, " username = '" + operario + "' AND password = '" + password + "'");
+            while (rs.next()){
+                
+                operarioTo.setIdOperarios(rs.getInt("idOperarios"));
+                operarioTo.setUsername(rs.getString("username"));
+                operarioTo.setPassword(rs.getString("password"));                
+                operarioTo.setNombre(rs.getString("nombre"));
+                operarioTo.setApellido(rs.getString("apellido"));
+                operarioTo.setEmail(rs.getString("email"));
+                operarioTo.setTipo_identificacion(rs.getString("tipo_identificacion"));
+                operarioTo.setIdentificacion(rs.getString("identificacion"));
+                operarioTo.setTelefono(rs.getString("telefono"));  
+                
+            }
+            return operarioTo;
+        } catch (SQLException ex) {
+            System.out.println("Error en DAoperarios.verificarUsuario: " + ex.getMessage());
+            return null;
         }
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class CtrlOperarios {
     DAOoperarios operariosDAO;
+     CtrlOperarios operariosCtrl;
 
     public CtrlOperarios() {
         operariosDAO = new DAOoperarios();
@@ -18,7 +19,6 @@ public class CtrlOperarios {
     }
     
     public int insertarOperarios(TOoperarios operario){
-        
         return operariosDAO.insertarOperarios(operario);
         
     }
@@ -27,10 +27,13 @@ public class CtrlOperarios {
         return operariosDAO.modificarOperarios(operario);
         
     }
-    public boolean eliminarOperarios(int id){        
+    public boolean eliminarOperarios(TOoperarios operario){        
        
-        return operariosDAO.eliminarOperarios(id);    
+        return operariosDAO.eliminarOperarios(operario.getIdOperarios());    
         
+    }    
+    public TOoperarios verificarUsuario(String operario, String password){  
+        return operariosDAO.verificarUsuario(operario, password);
     }
     
 }

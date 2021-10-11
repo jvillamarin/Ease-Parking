@@ -1,0 +1,17 @@
+{
+    "elements": {},
+    "attributes": {
+        "ng-model": {
+            "context": "input"
+        },
+        "ng-click": {
+            "context": "a"
+        },
+        "ng-repeat": {
+            "context": "tr"
+        },
+        "ng-app": {
+            "context": "div"
+        }
+    }
+}

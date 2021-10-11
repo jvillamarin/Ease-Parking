@@ -13,7 +13,7 @@ public class TOplazas {
     private int idPlazas;
     private String tipoPlaza;
     private String codigoPlaza;
-    private boolean libre;
+    private int libre;
 
     public TOplazas() {
     }
@@ -23,7 +23,7 @@ public class TOplazas {
         this.codigoPlaza = codigoPlaza;
     }
 
-    public TOplazas(String tipoPlaza, String codigoPlaza, boolean libre) {
+    public TOplazas(String tipoPlaza, String codigoPlaza, int libre) {
         this.tipoPlaza = tipoPlaza;
         this.codigoPlaza = codigoPlaza;
         this.libre = libre;
@@ -53,13 +53,12 @@ public class TOplazas {
         this.codigoPlaza = codigoPlaza;
     }
 
-    public boolean isLibre() {
+    public int getLibre() {
         return libre;
     }
 
-    public void setLibre(boolean libre) {
+    public void setLibre(int libre) {
         this.libre = libre;
-    }
-    
+    }   
     
 }

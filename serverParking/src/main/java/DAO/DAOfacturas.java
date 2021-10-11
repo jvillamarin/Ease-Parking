@@ -11,31 +11,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 /**
  *
  * @author johnv
  */
 public class DAOfacturas {
+
     private ConexionDb con;
-    private String nombreTabla = "facturas";
-    private String nombreVista = "vistaFacturas";
-    
+    private String nombreTabla = "Facturas";
+    private String nombreVista = "vistafacturas";
+
     public DAOfacturas() {
-      con = new ConexionDb();  
+        con = new ConexionDb();
     }
-    
-    
-    public ArrayList<TOfacturas> consultarFacturas(){
-        TOfacturas factura;
+
+    public ArrayList<TOfacturas> consultarFacturas() {
+        TOfacturas factura;        
         ArrayList<TOfacturas> faturas = new ArrayList<>();
-        
+
         try {
             ResultSet rs = con.consultar(nombreVista);
-            while (rs.next()){
+            while (rs.next()) {
                 factura = new TOfacturas();
-                factura.setIdOperarios(rs.getInt("idOperarios"));
-                factura.setUsername("username");
-                factura.setPassword(rs.getString("password"));                
+                factura.setIdOperariosFacturas(rs.getInt("idOperariosFacturas"));
+                factura.setUsername(rs.getString("username"));
+                factura.setPassword(rs.getString("password"));
                 factura.setNombre(rs.getString("nombre"));
                 factura.setApellido(rs.getString("apellido"));
                 factura.setEmail(rs.getString("email"));
@@ -45,10 +46,13 @@ public class DAOfacturas {
                 factura.setIdFacturas(rs.getInt("idFacturas"));
                 factura.setIdVehiculosFacturas(rs.getInt("idVehiculosFacturas"));
                 factura.setValorTotal(rs.getDouble("valorTotal"));
-                factura.setIdOperarios(rs.getInt("idOperarios"));
-                factura.setHoraEntrada(rs.getDate("horaEntrada"));
-                factura.setHoraSalida(rs.getDate("horaSalida")); 
-               
+                factura.setHoraEntrada(rs.getString("horaEntrada"));
+                factura.setHoraSalida(rs.getString("horaSalida"));              
+                
+                factura.setPlaca(rs.getString("placa"));
+                factura.setTipoVehiculo(rs.getString("tipoVehiculo"));
+                factura.setIdPlazasVehiculo(rs.getInt("idPlazasVehiculo"));
+
                 faturas.add(factura);
             }
             return faturas;
@@ -57,31 +61,36 @@ public class DAOfacturas {
             return null;
         }
     }
-    public int insertarFacturas(TOfacturas factura){
-        String[] valores = {String.valueOf(factura.getIdVehiculosFacturas()), String.valueOf(factura.getValorTotal()),
-            String.valueOf(factura.getIdOperariosFacturas())};
+
+    public int insertarFacturas(TOfacturas factura) {
+        
         try {
+            String[] valores = {String.valueOf(factura.getIdVehiculosFacturas()), String.valueOf(factura.getValorTotal()),
+            String.valueOf(factura.getIdOperariosFacturas())};
             return con.insertar(nombreTabla, valores);
         } catch (Exception ex) {
             System.out.println("Error en DAOuoperarios.insertar Facturas: " + ex.getMessage());
             return 0;
         }
     }
-    public boolean modificarFacturas(TOfacturas factura){
-        String[] valores = {String.valueOf(factura.getIdVehiculosFacturas()), String.valueOf(factura.getValorTotal()),
-            String.valueOf(factura.getIdOperariosFacturas())};
+
+    public boolean modificarFacturas(TOfacturas factura) {
+        
         try {
+            String[] valores = {String.valueOf(factura.getIdVehiculosFacturas()), String.valueOf(factura.getValorTotal()),
+            String.valueOf(factura.getIdOperariosFacturas())};
             return con.actualizar(nombreTabla, valores, factura.getIdOperarios());
         } catch (Exception ex) {
-            System.out.println("Error en DAOuoperarios.insertar Operarios: " + ex.getMessage());
+            System.out.println("Error en DAOufacturas.modificae Facturas: " + ex.getMessage());
             return false;
         }
     }
-    public boolean eliminarFacturas(int id){        
+
+    public boolean eliminarFacturas(int id) {
         try {
             return con.eliminar(nombreTabla, id);
         } catch (Exception ex) {
-            System.out.println("Error en DAOuoperarios.insertar Facturas: " + ex.getMessage());
+            System.out.println("Error en DAOufacturas.modificae Facturas:: " + ex.getMessage());
             return false;
         }
     }
